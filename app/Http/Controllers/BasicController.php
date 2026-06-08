@@ -24,6 +24,10 @@ class BasicController extends Controller
         return view('cart');
     }
 
+    public function authorisation() {
+        return view('signup');
+    }
+
 
     public function submit(Request $request) {
         $message = new Message();

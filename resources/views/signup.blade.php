@@ -1,7 +1,6 @@
 @extends('main_layout')
 
-@section('header-title', 'MarketFlow | Вход в аккаунт')
-
+@section('header-title', 'MarketFlow | Регистрация аккаунта')
 
 
 @section('content')
@@ -23,14 +22,15 @@
                         </defs>
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-linecap="round"/>
                         <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-linecap="round"/>
+                        <path d="M17 3.5a4 4 0 0 1 0 7" stroke="currentColor" stroke-linecap="round"/>
                     </svg>
                 </div>
-                <h2>Добро пожаловать!</h2>
-                <p>Войдите в свой аккаунт MarketFlow</p>
+                <h2>Создать аккаунт</h2>
+                <p>Присоединяйтесь к MarketFlow</p>
             </div>
 
-            <!-- Форма входа -->
-            <form action="/signin" method="post" class="auth-form">
+            <!-- Форма регистрации -->
+            <form action="/register" method="post" class="auth-form">
                 @csrf
 
                 @if(session('error'))
@@ -49,19 +49,50 @@
                 </div>
                 @endif
 
-                <!-- Поле Логин -->
+                <!-- Поле Имя -->
                 <div class="form-group">
-                    <label for="login">
-                        <span class="label-text">Логин или Email</span>
+                    <label for="name">
+                        <span class="label-text">Имя и фамилия</span>
+                    </label>
+                    <div class="input-field">
+                        <span class="field-icon">👤</span>
+                        <input type="text" 
+                               id="name" 
+                               name="name" 
+                               value="{{ old('name') }}"
+                               placeholder="Иван Иванов"
+                               required>
+                    </div>
+                </div>
+
+                <!-- Поле Email -->
+                <div class="form-group">
+                    <label for="email">
+                        <span class="label-text">Email</span>
                     </label>
                     <div class="input-field">
                         <span class="field-icon">📧</span>
-                        <input type="text" 
-                               id="login" 
-                               name="login" 
-                               value="{{ old('login') }}"
+                        <input type="email" 
+                               id="email" 
+                               name="email" 
+                               value="{{ old('email') }}"
                                placeholder="ivan@example.com"
                                required>
+                    </div>
+                </div>
+
+                <!-- Поле Телефон -->
+                <div class="form-group">
+                    <label for="phone">
+                        <span class="label-text">Телефон</span>
+                    </label>
+                    <div class="input-field">
+                        <span class="field-icon">📱</span>
+                        <input type="tel" 
+                               id="phone" 
+                               name="phone" 
+                               value="{{ old('phone') }}"
+                               placeholder="+7 900 123-45-67">
                     </div>
                 </div>
 
@@ -80,33 +111,47 @@
                     </div>
                 </div>
 
-                <!-- Опции -->
-                <div class="form-options">
-                    <label class="custom-checkbox">
-                        <input type="checkbox" name="remember">
-                        <span class="checkbox-mark"></span>
-                        <span class="checkbox-text">Запомнить меня</span>
+                <!-- Поле Подтверждение пароля -->
+                <div class="form-group">
+                    <label for="password_confirmation">
+                        <span class="label-text">Подтверждение пароля</span>
                     </label>
-                    <a href="#" class="link-forgot">Забыли пароль?</a>
+                    <div class="input-field">
+                        <span class="field-icon">🔐</span>
+                        <input type="password" 
+                               id="password_confirmation" 
+                               name="password_confirmation" 
+                               placeholder="••••••••"
+                               required>
+                    </div>
                 </div>
 
-                <!-- Кнопка входа -->
+                <!-- Соглашение с правилами -->
+                <div class="form-options">
+                    <label class="custom-checkbox">
+                        <input type="checkbox" name="agree" required>
+                        <span class="checkbox-mark"></span>
+                        <span class="checkbox-text">Я согласен с <a href="#" class="link-inline">правилами маркетплейса</a></span>
+                    </label>
+                </div>
+
+                <!-- Кнопка регистрации -->
                 <button type="submit" class="btn-primary">
-                    <span>Войти в аккаунт</span>
+                    <span>Зарегистрироваться</span>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M5 12h14M12 5l7 7-7 7"/>
                     </svg>
                 </button>
 
-                <!-- Регистрация -->
+                <!-- Ссылка на вход -->
                 <div class="auth-footer">
-                    <span class="footer-text">Ещё нет аккаунта?</span>
-                    <a href="/authorisation" class="link-register">Создать аккаунт</a>
+                    <span class="footer-text">Уже есть аккаунт?</span>
+                    <a href="{{ route('account') }}" class="link-register">Войти в аккаунт</a>
                 </div>
             </form>
         </div>
         
-        <!-- Бонусный блок -->
+        <!-- Блок преимуществ -->
         <div class="auth-benefits">
             <div class="benefit-item">
                 <span class="benefit-icon">🚚</span>
